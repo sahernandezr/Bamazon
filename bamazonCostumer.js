@@ -43,7 +43,6 @@ function selectProduct() {
                 message: "How many would you like to buy?",
                 name: "quantityToBuy"
             }
-
         ])
         .then(function (response) {
             var productToBuy = response.productToBuy;
@@ -61,7 +60,7 @@ function selectProduct() {
                 }
                 else {
                     var newStock = stock - quantityToBuy;
-                    connection.query('UPDATE products SET stock_quantity=? WHERE item_id=?', [newStock, databaseIndex], (err, res) => {
+                    connection.query('UPDATE products SET stock_quantity=?, items_sold=? WHERE item_id=?', [newStock, quantityToBuy, databaseIndex], (err, res) => {
                         if (err) throw err;
                         console.log("Order confirmed! Your total is: " + price * quantityToBuy + " dollars \n----------\n");
                         connection.end();
